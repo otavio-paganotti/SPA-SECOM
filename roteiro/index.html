@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+      .code {
+        background-color: #fafafa;
+        border: 1px solid #9e9e9e;
+        border-radius: 10px;
+        padding: 10px 10px 0 10px;
+        width: 600px
+      }
+      body {
+        font-size: 10pt
+      }
+    </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="center">
+        <h6>Centro Acadêmico de Engenharia de Computação Alan Turing - CAECOM</h6>
+        <h6>I Semana Acadêmica de Engenharia de Computação - SECOM</h6>
+        <h6>Single Page Application: Um novo conceito de aplicações web</h6>
+        <h6>Instrutor: Otávio Augusto Paganotti Messias da Silva</h6>
+      </div>
+      <br>
+      <h5>Roteiro</h5>
+      <hr>
+      <ul>
+        <li style="list-style-type: square;">Introdução</li>
+        <li style="list-style-type: square;">Criando um arquivo .html</li>
+        <li style="list-style-type: square;">Entrar no site vuejs.org</li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Getting Started</li>
+          <li style="list-style-type: circle;">CDN do Vue.js</li>
+        </ul>
+        <li style="list-style-type: square;">Anexar a CDN dentro do arquivo .html</li>
+        <li style="list-style-type: square;"><strong>Instanciando o Vue</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Iniciar o Bloco script instanciando o Vue</li>
+          <pre class="code">
+&lt;div id="app"&gt;
+  &lt;h1&gt;{message}&lt;/h1&gt;
+&lt;/div&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"&gtscript&gt;
+&lt;script type="text/javascript"&gt;
+new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue'
+  }
+})
+&lt;/script&gt;
+          </pre>
+          <li style="list-style-type: circle;">Breve explicação sobre como o Vue cria o DOM do navegador</li>
+          <ul style="margin-left: 40px">
+            <li style="list-style-type: square;">O DOM (Document Object Model) é uma interface que representa como os documentos HTML e XML são lidos pelo seu browser. Após o browser ler seu documento HTML, ele cria um objeto que faz uma representação estruturada do seu documento e define meios de como essa estrutura pode ser acessada. Nós podemos acessar e manipular o DOM com JavaScript, é a forma mais fácil e usada.</li>
+          </ul>
+          <li style="list-style-type: circle;">Adicionar um método simples que retorna uma string (introdução aos métodos)</li>
+          <pre class="code">
+methods: {
+  sayHello: function() {
+    return 'Hello'
+  }
+}
+          </pre>
+          <li style="list-style-type: circle;">Dentro do javascript do Vue, nós podemos chamar elementos (métodos, dados, etc.)  por meio do “this”, mas temos que ficar atentos, pois o “this” só funciona dentro do bloco javascript, e não dentro do HTML, pois o Vue consegue identificar qual elemento estamos falando dentro do HTML, mas não consegue identificar dentro do HTML, pois pode ser que tenha uma variável local dentro do método, e isto pode gerar algum tipo de conflito.</li>
+          <pre class="code">
+digaOla: function() {
+  return this.message
+}
+          </pre>
+        </ul>
+        <li style="list-style-type: square;"><strong>v-bind</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Foi-se criado uma variável dentro do vue com um link inserido.</li>
+          <pre class="code">
+data: {
+  link: 'https://google.com'
+}
+          </pre>
+          <li style="list-style-type: circle;">A coisa mais lógica a se fazer, é utilizar a interpolação e adicionar o “link” dentro de uma tag &lt;a> certo?</li>
+          <pre class="code">
+&lt;h1>{{message}} - &lt;a href="{{link}}">Google&lt;/a>&lt;/h1>
+          </pre>
+          <li style="list-style-type: circle;">Mas veremos que assim não funciona, dentro de “href” é esperado que seja inserido um link de verdade (um link estático), e não “{ link }”.</li>
+          <li style="list-style-type: circle;">Para adicionarmos um link dinâmico dentro de “href”, precisamos de uma diretiva vue, chamada “v-bind” e esta diretiva diz ao Vue.js - “Ei, não utilize a atribuição normal aqui, não utilize uma atribuição html normal, ao invés disso, linke com esta variável”.</li>
+          <pre class="code">
+&lt;h1>{{message}} - &lt;a v-bind:href="link">Google&lt;/a>&lt;/h1>
+          </pre>
+          <li style="list-style-type: circle;">E com isso, conseguimos ‘linkar’ a variável que queremos no atributo html que desejamos.</li>
+        </ul>
+        <li style="list-style-type: square;"><strong>Entendendo o uso de diretivas</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Com o uso das diretivas, o vue nos permite fazer coisas assim, mas como isso funciona? O que é uma diretiva?</li>
+          <li style="list-style-type: circle;">Uma diretiva é simplesmente uma instrução que você coloca no seu código, e o vue identifica esta instrução e adiciona ela nos atributos que serão dinamicamente montados na hora em que o DOM é montado.</li>
+          <li style="list-style-type: circle;">Ou seja, você apenas diz ao vue, que irá linkar o valor do atributo, com um método “data” dentro da instância vue.</li>
+        </ul>
+        <li style="list-style-type: square;"><strong>v-html (Saída bruta de HTML)</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Se quisermos colocar um bloco html inteiro dentro de uma variável vue, e queremos imprimir como um bloco HTML, o vue simplesmente iria imprimir todo o bloco html como se fosse um texto simples.</li>
+          <pre class="code">
+&lt;h1>&lt;span v-html="finishedLink">&lt;/span>&lt;/h1>
+          </pre>
+          <li style="list-style-type: circle;">Utilizando a diretiva v-html, o vue entende que o bloco a ser montado no DOM, se trata de um bloco html a ser impresso na tela.</li>
+        </ul>
+        <li style="list-style-type: square;"><strong>v-on Ouvindo Eventos</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Utilizamos a diretiva v-on para trazer o evento para dentro do vue, agindo de maneira oposta ao v-bind, que pega algo do vue e leva para dentro do html.</li>
+          <li style="list-style-type: circle;">Temos um botão onde queremos contar quantas vezes ele foi clicado:</li>
+          <pre class="code">
+&lt;button v-on:click="incremento">Clique aqui&lt;/button>
+&lt;p>{{counter}}&lt;/p>
+
+counter: 0
+
+incremento: function() {
+  this.counter += 1
+}
+          </pre>
+          <li style="list-style-type: circle;">Aqui tem outro exemplo de v-on utilizando as coordenadas do navegador, com o atributo “mousemove”:</li>
+          <pre class="code">
+atualizaCoordenadas: function(event) {
+  this.x = event.clientX
+  this.y = event.clientY
+}
+
+x: 0,
+y: 0
+
+&lt;p v-on:mousemove="atualizaCoordenadas">Coordanadas: {{x}} / {{y}}&lt;/p>
+          </pre>
+          <li style="list-style-type: circle;">Também podemos adicionar nossos próprios parâmetros dentro do v-on</li>
+          <pre class="code">
+&lt;button v-on:click="incremento(2)">Clique aqui&lt;/button>
+
+incremento: function(pulo) {
+  this.counter += pulo
+}
+          </pre>
+          <li style="list-style-type: circle;">Se eu quiser passar meu próprio evento, e o evento padrão do Vue, eu devo adicionar</li>
+          <pre class="code">
+&lt;button v-on:click="incremento(2, $event)">Clique aqui&lt;/button>
+          </pre>
+        </ul>
+        <li style="list-style-type: square;"><strong>v-on:keyup Ouvindo Eventos do teclado</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Podemos capturar eventos, não apenas com clique do mouse, ou com os movimentos do mesmo. Podemos utilizar todas as teclas do teclado disponíveis para serem criados eventos.</li>
+          <pre class="code">
+&lt;input type=”text” v-on:keyup.enter=”meAlerte”>
+ 
+meAlerte: function() {
+  alert(‘Alerta!’)
+}
+          </pre>
+          <li style="list-style-type: circle;">v-on:keyp.enter.exact faz com que esta única tecla combinada execute a tal função</li>
+        </ul>
+        <li style="list-style-type: square;"><strong>Escrevendo código JS dentro do Template</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">O vue suporta trechos de código javascript dentro de suas interpolações HTML, e também dentro de suas diretivas.</li>
+          <pre class="code">
+&lt;button v-on:click=”counter++”>Clique aqui&lt;/button>
+{{counter * 2 > 10 ? ‘Maior que 10’ : ‘Menor que 10’}}
+          </pre>
+        </ul>
+        <li style="list-style-type: square;"><strong>Two-way-binding v-model</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">Se quisermos alterar em tempo real o valor de uma variável, utilizando um misto entre v-on e v-bind (Ou seja, trazer o dado de dentro da instância vue, e depois enviá-lo para a instância vue), podemos fazer o uso da diretiva v-model.</li>
+          <pre class="code">
+&lt;input type=”text” v-model=”name”>
+name: ‘Otávio’
+          </pre>
+        </ul>
+        <li style="list-style-type: square;"><strong>Estilos dinâmicos com Classes CSS</strong></li>
+        <ul style="margin-left: 40px">
+          <pre class="code">
+&lt;!DOCTYPE html>
+&lt;html>
+  &lt;head>
+    &lt;title>&lt;/title>
+    &lt;style>
+      .demo {
+        width: 100px;
+        height: 100px;
+        background-color: #ccc;
+        margin: 10px;
+        display: inline-block;
+      }
+      .red {
+        background-color: red;
+      }
+      .green {
+        background-color: green;
+      }
+      .blue {
+        background-color: blue;
+      }
+    &lt;/style>
+  &lt;/head>
+  &lt;body>
+    &lt;div id="app">
+      &lt;div 
+        class="demo"
+        @click="isRed = !isRed"
+        :class="{red: isRed}"
+      >&lt;/div>
+      &lt;div 
+        class="demo"
+        @click="isBlue = !isBlue"
+        :class="{blue: isBlue}"
+      >&lt;/div>
+      &lt;div 
+        class="demo"
+        @click="isGreen = !isGreen"
+        :class="{green: isGreen}"
+      >&lt;/div>
+    &lt;/div>
+    &lt;script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+    &lt;/script>
+    &lt;script type="text/javascript">
+      new Vue({
+        el: '#app',
+        data: {
+          isRed: false,
+          isBlue: false,
+          isGreen: false
+        }
+      })
+    &lt;/script>
+  &lt;/body>
+&lt;/html>
+          </pre>
+          <pre class="code">
+&lt;div 
+  class="demo"
+  @click="isGreen = !isGreen"
+  :style="{‘background-color’: color}"
+>&lt;/div>
+&lt;input type=”text” v-model=”color”>
+
+color: ‘gray’
+          </pre>
+        </ul>
+        <li style="list-style-type: square;"><strong>Listas e Condicionais</strong></li>
+        <ul style="margin-left: 40px">
+          <li style="list-style-type: circle;">v-if</li>
+          <ul style="margin-left: 40px">
+            <li style="list-style-type: square;">v-if adiciona ou remove totalmente o bloco html de dentro do DOM do navegador. Isso significa que se o v-if retornar falso, o elemento HTML não será renderizado de forma nenhuma dentro do navegador.</li>
+            <pre class="code">
+&lt;div id="app">
+  &lt;p v-if="show">Agora você me vê&lt;/p>
+  &lt;p v-if="!show">Agora não vê mais&lt;/p>
+  &lt;button @click="show = !show">Trocar&lt;/button>
+&lt;/div>
+&lt;script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">&lt;/script>
+&lt;script type="text/javascript">
+  new Vue({
+    el: '#app',
+    data: {
+      show: true
+    }
+  })
+&lt;/script>
+            </pre>
+          </ul>
+          <li style="list-style-type: circle;">v-else</li>
+          <pre class="code">
+&lt;p v-else>Agora não vê mais&lt;/p>
+          </pre>
+          <li style="list-style-type: circle;">v-show</li>
+          <ul style="margin-left: 40px">
+            <li style="list-style-type: square;">O v-show apenas esconde ou não o elemento que deseja. Ao contrário do v-if, que remove ou adiciona o elemento do DOM do navegador.</li>
+            <pre class="code">
+&lt;p v-show="!show">Aqui temos um v-show&lt;/p>
+            </pre>
+          </ul>
+          <li style="list-style-type: circle;">v-for</li>
+          <ul style="margin-left: 40px">
+            <li style="list-style-type: square;">Se utiliza de arrays e objetos para imprimir dinamicamente os elementos de dentro do vue para o html.</li>
+            <li style="list-style-type: square;">Todos sabemos que quando nós formos construir uma aplicação real, os dados não serão estáticos dentro da página, e estarão sujeitos a modificações a todo tempo. Temos que trazer estes dados dinâmicos de alguma forma, sem saber se está vindo 1 dado, ou 1000.</li>
+            <li style="list-style-type: square;">Para isso utilizamos o v-for, que é um laço de repetição que o vue fornece para nós.</li>
+            <pre class="code">
+&lt;ul v-for="ingrediente in ingredientes">
+  &lt;li>{{ingrediente}}&lt;/li>
+&lt;/ul>
+ingredientes: ['Carne', 'Frutas', 'Ovos'] 
+            </pre>
+            <li style="list-style-type: square;">Acessar o Index (key) do laço de repetição</li>
+            <pre class="code">
+&lt;ul v-for="(ingrediente, index) in ingredientes">
+  &lt;li>{{ingrediente}} ({{index}})&lt;/li>
+&lt;/ul>
+            </pre>
+            <li style="list-style-type: square;">v-for aninhados para imprimir um array de objetos:</li>
+            <pre class="code">
+&lt;ul v-for="pessoa in pessoas">
+  &lt;li v-for="(valor, index) in pessoa">{{index}}: {{valor}}&lt;/li>
+&lt;/ul>
+pessoas: [
+  {nome: 'Max', idade: 28, cor: 'red'},
+  {nome: 'Anna', idade: 'unknown', color: 'blue'}
+]
+            </pre>
+          </ul>
+        </ul>
+      </ul>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

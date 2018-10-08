@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<style type="text/css" media="screen">
+		.demo {
+			width: 100px;
+			height: 100px;
+			background-color: #ccc;
+			margin: 10px;
+			display: inline-block;
+		}
+		.red {
+			background-color: red
+		}
+		.blue {
+			background-color: blue
+		}
+		.green {
+			background-color: green
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<ul v-for="(fruta, index) in frutas">
+			<li>{{fruta}} ({{index}})</li>
+		</ul>
+		<ul>
+			<li v-for="pessoa in pessoas"><span v-for="(valor, index, i) in pessoa">{{index}} = {{valor}} ({{i}})</span></li>
+		</ul>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				frutas: ['Banana', 'Maçã', 'Limão'],
+				pessoas: [
+					{nome: 'José', idade: 21, cidade: 'Ponta Porã'},
+					{nome: 'Ana', idade: 28, cidade: 'Dourados'}
+				],
+				show: true,
+				noshow: false
+			},
+			methods: {
+			}
+		})
+	</script>
+</body>
+</html>
