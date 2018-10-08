@@ -1,23 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <app-header></app-header>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Header from './components/header/header.vue'
 export default {
-  name: 'App'
+  name: 'app',
+  components: {
+    'app-header': Header
+  },
+  created () {
+    this.$store.dispatch('tryAutoLogin')
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+body, html {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 </style>
